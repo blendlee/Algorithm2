@@ -1,0 +1,23 @@
+#모험가길드
+
+
+n= int(input())
+graph=list(map(int,input().split()))
+graph.sort()
+
+#인덱스+1과 원소 값이 같으면 슬라이싱
+#슬라이싱된 횟수 카운트
+count=0
+idx=0
+while True:
+    if graph[0] > len(graph):
+        break
+    for i in range(len(graph)):
+        if i+1 == graph[i] :
+            count+=1
+            graph=graph[i+1:]
+            print(graph)
+            break
+
+
+print(count)
