@@ -1,0 +1,12 @@
+n=int(input())
+graph=list(map(int,input().split()))
+
+graph.sort()
+count=1
+
+for i in graph:
+    if count < i :
+        break
+    count+=i
+    
+print(count)
