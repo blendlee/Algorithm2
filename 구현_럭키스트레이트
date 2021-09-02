@@ -1,0 +1,8 @@
+s=list(str(input()))
+for i in range(len(s)):
+    s[i]=int(s[i])
+
+if sum(s[:len(s)//2]) == sum(s[len(s)//2:]) :
+  print('LUCKY')
+else :
+  print("READY")
