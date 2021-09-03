@@ -1,0 +1,43 @@
+def check(array,key):
+    for i in range(len(key),len(key)+len(lock)):
+        for j in range(len(key),len(key)+len(lock)):
+            if array[i][j] != 1 :
+                return False
+    return True
+
+
+
+def turn(key):
+    new_key=[[] for _ in range(len(key))]
+    for i in range(len(key)):
+        for j in range(len(key)):
+            new_key[i].append(key[j][i])
+        new_key[i].reverse()
+    return new_key
+
+
+
+def solution(key,lock):
+    length = 2*len(key)+len(lock)
+    array=[[0]*length for _ in range(length)]
+    for i in range(len(lock)) :
+        for j in range(len(lock)):
+            if lock[i][j] == 1 :
+                array[i+len(key)][j+len(key)]= 1
+
+
+    for i in range(length-len(key)):
+        for j in range(length-len(key)):
+            for k in range(4):
+                key=turn(key)
+                for m in range(i,i+len(key)):
+                    for n in range(j,j+len(key)):
+                        array[m][n] += key[m-i][n-j]
+                if check(array,key)== True:
+                    return True
+                else :
+                    for m in range(i,i+len(key)):
+                        for n in range(j,j+len(key)):
+                            array[m][n] -= key[m-i][n-j]
+
+    return False
