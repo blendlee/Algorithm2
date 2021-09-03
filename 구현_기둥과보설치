@@ -1,0 +1,57 @@
+building=[]
+
+def build(x,y,a,n):
+    if a== 0 :
+        if 0<= x <=n and 0<= y <= n-1 :
+            if [x,y-1,a] in building or y == 0  :
+                building.append([x,y,a])
+            elif [x,y,a+1] in building or [x-1,y,a+1] in building :
+                building.append([x,y,a])
+  
+    else:
+        if 0<=x<=n-1 and 0<= y<=n:
+            if [x,y-1,a-1] in building or [x+1,y-1,a-1] in building :
+                building.append([x,y,a])
+            elif [x-1,y,a] in building and [x+1,y,a] in building :
+                building.append([x,y,a])
+
+
+def delete(x,y,a,n):
+    building.remove([x,y,a])
+    if check(building,n) == False :
+        building.append([x,y,a])
+    
+def check(building,n):
+    for x,y,a in building :
+        if a == 0 :
+            if 0<= x <=n and 0<= y <= n-1 :
+                if [x,y-1,a] in building or y == 0  :
+                    continue
+                elif [x,y,a+1] in building or [x-1,y,a+1] in building :
+                    continue
+            return False
+        else:
+            if 0<=x<=n-1 and 0<= y<=n:
+                if [x,y-1,a-1] in building or [x+1,y-1,a-1] in building :
+                    continue
+                elif [x-1,y,a] in building and [x+1,y,a] in building :
+                    continue
+            return False
+    return True
+
+
+
+
+
+def solution(n,build_frame):
+    global building
+
+
+    for x,y, a,b in build_frame :
+        if b == 1 :
+            build(x,y,a,n)
+        else :
+            delete(x,y,a,n)
+    
+    building.sort()
+    return building
