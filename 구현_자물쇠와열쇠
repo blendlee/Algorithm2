@@ -1,4 +1,4 @@
-def check(array,key):
+def check(array,key,lock):
     for i in range(len(key),len(key)+len(lock)):
         for j in range(len(key),len(key)+len(lock)):
             if array[i][j] != 1 :
@@ -33,7 +33,7 @@ def solution(key,lock):
                 for m in range(i,i+len(key)):
                     for n in range(j,j+len(key)):
                         array[m][n] += key[m-i][n-j]
-                if check(array,key)== True:
+                if check(array,key,lock)== True:
                     return True
                 else :
                     for m in range(i,i+len(key)):
