@@ -1,0 +1,34 @@
+from itertools import combinations
+
+n,m= map(int,input().split())
+
+
+graph=[]
+
+for i in range(n):
+    graph.append(list(map(int,input().split())))
+
+chickens=[]
+for i in range(n):
+    for j in range(n):
+        if graph[i][j] == 2 :
+            chickens.append((i,j))
+
+def get_distance(graph,chicken):
+    distance=0
+    for i in range(n):
+        for j in range(n):
+            if graph[i][j] == 1 :
+                dist=2500
+                for x,y in chicken:
+                    dist = min(dist,abs(x-i)+abs(y-j))
+                distance += dist
+    return distance
+
+chickenss=list(combinations(chickens,m))
+
+minimum=2500
+for chicken in chickenss :
+    minimum=min(get_distance(graph,chicken),minimum)
+
+print(minimum)
