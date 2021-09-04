@@ -1,0 +1,64 @@
+
+import copy
+
+n,m=map(int,input().split())
+graph=[]
+for i in range(n):
+    graph.append(list(map(int,input().split())))
+
+
+def check(array):
+    count=0
+    for i in range(n):
+        for j in range(m):
+            if array[i][j] == 0:
+                count+=1
+    return count
+
+
+dx =[1,0,-1,0]
+dy =[0,1,0,-1]
+
+def spread(array,x,y):
+    for i in range(4):
+        nx =x+dx[i]
+        ny=y+dy[i]
+        if nx>=0 and nx<n and ny>=0 and ny<m :
+            if array[nx][ny]==0:
+                array[nx][ny] = 2
+                spread(array,nx,ny)
+viruses=[]
+for i in range(n):
+    for j in range(m):
+        if graph[i][j] == 2 :
+            viruses.append((i,j))
+
+
+
+
+
+minimum=0
+count=0
+def find():
+    global count
+    global minimum
+    if count == 3 :
+        array= copy.deepcopy(graph)
+        for virus in viruses:
+            x,y = virus
+            spread(array,x,y)
+        minimum = max(check(array),minimum)
+        return
+
+    for i in range(n):
+        for j in range(m):
+
+            if graph[i][j] ==0 :
+                graph[i][j] = 1
+                count+=1
+                find()
+                graph[i][j]=0
+                count-=1
+
+    return minimum
+print(find())
