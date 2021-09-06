@@ -1,0 +1,7 @@
+n= int(input())
+graph=list(map(int,input().split()))
+
+
+graph.sort()
+
+print(graph[(len(graph)//2) -1])
