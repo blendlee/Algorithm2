@@ -1,0 +1,39 @@
+from bisect import bisect_left, bisect_right
+
+words=["frodo","front","frost","frozen","frame","kakao"]
+queries=['fro??','????o','fr???','fro???','pro?']
+
+
+def count_range(word,left,right):
+    left = bisect_left(word,left)
+    right = bisect_right(word,right)
+    return (right-left)-2
+
+
+def soultion(words,queries):
+    result=[]
+    for query in queries:
+        word=[]
+        q=query.count('?')
+        if query[-1] == '?':
+            for a in words:
+                if len(a)==len(query):
+                    word.append(a)
+            left=query[:len(query)-q]+'a'*q
+            right= query[:len(query)-q]+'z'*q
+        else :
+            for a in words:
+                if len(a)==len(query):
+                    a=a[::-1]
+                    word.append(a)
+            left='a'*q+query[q:]
+            left=left[::-1]
+            right='z'*q+query[q:]
+            right=right[::-1]
+
+
+        word.append(right)
+        word.append(left)
+        word.sort()
+        result.append(count_range(word,left,right))
+    return result
