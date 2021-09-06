@@ -1,0 +1,52 @@
+import copy
+import sys
+sys.setrecursionlimit(2500)
+input=sys.stdin.readline
+n,l,r = map(int,input().split())
+
+graph=[]
+
+for i in range(n):
+    graph.append(list(map(int,input().split())))
+
+
+
+dx=[1,0,-1,0]
+dy=[0,1,0,-1]
+
+def union(x,y):
+    for i in range(4):
+        global people
+        global unions
+        nx=x+dx[i]
+        ny=y+dy[i]
+        if 0<= nx <n and 0<= ny <n :
+            if l <= abs(graph[x][y]-graph[nx][ny]) <= r :
+                if (nx,ny) not in unions:
+                    people+=graph[nx][ny]
+                    unions.append((nx,ny))
+                    union(nx,ny)
+
+
+day=0
+while True :
+    
+    array=[[-1]*n for _ in range(n)]
+    for i in range(n):
+        for j in range(n):
+            if array[i][j] != -1 :
+                continue
+            array[i][j] =graph[i][j]
+            people=graph[i][j]
+            unions=[]
+            unions.append((i,j))
+            union(i,j)
+            for x,y in unions:
+                array[x][y] = people//len(unions)
+    if array == graph :
+        break
+    graph=copy.deepcopy(array)
+    day+=1
+
+
+print(day)
