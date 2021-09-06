@@ -1,0 +1,17 @@
+def solution(N,stages):
+    failures=[]
+    stages.sort()
+    fail=0
+    result=[]
+    for i in range(1,N+1):
+        if len(stages)-fail == 0 :
+            failures.append((0,i)) 
+        else :
+            failures.append(((stages.count(i) / (len(stages)-fail)),i))
+        fail+= stages.count(i)
+    failures.sort( key = lambda x : -x[0])
+    for x,y in failures :
+        if y == 0 :
+            continue
+        result.append(y)
+    return result
