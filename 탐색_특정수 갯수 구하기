@@ -1,0 +1,13 @@
+from bisect import bisect_left,bisect_right
+
+n,m = map(int,input().split())
+
+num=list(map(int,input().split()))
+
+right = bisect_right(num,m)
+left = bisect_left(num,m)
+
+if right-left ==0 :
+    print(-1)
+else:
+    print(right-left)
